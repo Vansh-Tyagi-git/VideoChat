@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>WebRTC Host</title>
+  <link rel="stylesheet" href="/index.css" />
+  <script>
+    const ROOM_ID = window.location.pathname.split('/')[1];
+    window.ROOM_ID = ROOM_ID;
+    window.IS_HOST = true;
+  </script>
+  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+  <script defer src="/socket.io/socket.io.js"></script>
+  <script defer src="/host.js"></script>
+</head>
+<body>
+  <h1>Host Room</h1>
+  <div id="video-grid"></div>
+  <div id="approval-panel"></div>
+</body>
+</html>

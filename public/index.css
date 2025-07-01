@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+h1 {
+  margin: 20px;
+}
+
+#video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+video {
+  width: 100%;
+  border-radius: 10px;
+  background-color: black;
+}
+
+#approval-panel {
+  padding: 10px;
+}
+
+button.approve-btn {
+  padding: 10px 15px;
+  margin: 5px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
