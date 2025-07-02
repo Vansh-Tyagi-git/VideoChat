@@ -77,9 +77,10 @@ io.on('connection', socket => {
     socket.to(roomId).emit('user-connected', userId);
 
     socket.on('disconnect', () => {
-      // Emit user-disconnected with PEER ID, not socket ID
-      rooms.forEach(roomId => {
-        socket.to(roomId).emit('user-disconnected', socket.peerId); // Use peerId
+      socket.rooms.forEach(roomId => {
+        if (roomId !== socket.id) { // Skip the socket's own room
+          socket.to(roomId).emit('user-disconnected', socket.peerId);
+        }
       });
     });
   });

@@ -18,6 +18,10 @@ socket.emit('register-host', window.ROOM_ID);
 
 navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
   myVideo.srcObject = stream;
+  // Set up main video
+  const mainVideo = document.getElementById('mainVideo');
+  mainVideo.srcObject = stream;
+  mainVideo.addEventListener('loadedmetadata', () => mainVideo.play());
   myVideo.addEventListener('loadedmetadata', () => myVideo.play());
   videoGrid.append(myVideo);
 

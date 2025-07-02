@@ -1,21 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>WebRTC Host</title>
-  <link rel="stylesheet" href="/index.css" />
-  <script>
-    const ROOM_ID = window.location.pathname.split('/')[1];
-    window.ROOM_ID = ROOM_ID;
-    window.IS_HOST = true;
-  </script>
-  <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
-  <script defer src="/socket.io/socket.io.js"></script>
-  <script defer src="/host.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoChat - Host</title>
+    <link rel="stylesheet" href="/index.css">
+    <script>
+        const ROOM_ID = window.location.pathname.split('/')[1];
+        window.ROOM_ID = ROOM_ID;
+        window.IS_HOST = true;
+    </script>
+    <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+    <script defer src="/socket.io/socket.io.js"></script>
+    <script defer src="/host.js"></script>
 </head>
 <body>
-  <h1>Host Room</h1>
-  <div id="video-grid"></div>
-  <div id="approval-panel"></div>
+    <div class="app-container">
+        <!-- Header with Logo -->
+        <header class="header">
+            <div class="logo">
+                <h1>VideoChat</h1>
+                <span class="host-badge">HOST</span>
+            </div>
+            <div class="room-info">
+                <span>Room ID: <strong id="room-id-display"></strong></span>
+                <button id="copy-room-btn" class="copy-btn">Copy Link</button>
+            </div>
+        </header>
+
+        <!-- Approval Panel -->
+        <div id="approval-panel" class="approval-panel hidden">
+            <h3>Pending Join Requests</h3>
+            <div id="approval-list"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Main Video Preview -->
+            <div class="main-video-container">
+                <div class="video-wrapper">
+                    <video id="mainVideo" class="main-video" autoplay muted></video>
+                    <div class="video-overlay">
+                        <span class="participant-name">You (Host)</span>
+                    </div>
+                </div>
+                
+                <!-- Main Video Controls -->
+                <div class="main-controls">
+                    <button class="control-btn camera-btn active" id="cameraBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="control-btn end-call-btn" id="endCallBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08c-.18-.17-.29-.42-.29-.7 0-.28.11-.53.29-.71C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.7l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.1-.7-.28-.79-.73-1.68-1.36-2.66-1.85-.33-.16-.56-.51-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="control-btn mic-btn active" id="micBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Participant Videos Grid -->
+            <div class="participants-grid" id="video-grid">
+                <!-- Participant videos will be added here dynamically -->
+            </div>
+        </main>
+    </div>
 </body>
 </html>
