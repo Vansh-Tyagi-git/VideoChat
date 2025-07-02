@@ -20,7 +20,6 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream =>
   console.log('[Got media stream]');
   localStream = stream;
 
-  // Set up main video
   const mainVideo = document.getElementById('mainVideo');
   mainVideo.srcObject = stream;
   mainVideo.addEventListener('loadedmetadata', () => mainVideo.play());
