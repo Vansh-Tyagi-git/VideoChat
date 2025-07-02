@@ -13,11 +13,12 @@ let localStream;
 let myPeerId = null;
 
 const myPeer = new Peer(undefined, {
-  host: 'localhost',
-  port: 3001,
+  host: 'peerjs-server-9g9m.onrender.com',
+  port: 443,
   path: '/',
-  secure: false
+  secure: true
 });
+
 
 navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
   console.log('[Got media stream]');

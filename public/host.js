@@ -36,11 +36,12 @@ myVideo.muted = true;
 const peers = {};
 
 const myPeer = new Peer(undefined, {
-  host: 'localhost',
-  port: 3001,
+  host: 'peerjs-server-9g9m.onrender.com',
+  port: 443,
   path: '/',
-  secure: false
+  secure: true
 });
+
 
 socket.emit('register-host', window.ROOM_ID);
 
