@@ -346,3 +346,103 @@ button.approve-btn {
   border-radius: 5px;
 }
 
+/* Optimized Responsive CSS starting at line 347 */
+@media (max-width: 900px) {
+  .main-content {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px 10px;
+    max-width: 100vw;
+  }
+  .main-video {
+    height: 220px;
+  }
+  .participants-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 10px;
+  }
+  .participant-video {
+    height: 90px;
+  }
+  .approval-panel {
+    margin: 0 10px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+  }
+  .logo h1 {
+    font-size: 1.5rem;
+  }
+  .room-info {
+    font-size: 0.9rem;
+    gap: 8px;
+  }
+  .main-video-container {
+    gap: 8px;
+  }
+  .main-video {
+    height: 140px;
+    min-height: 100px;
+  }
+  .main-controls {
+    gap: 7px;
+  }
+  .control-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+  .participants-grid {
+    gap: 6px;
+  }
+  .participant-video {
+    height: 60px;
+  }
+  .video-overlay, .participant-video .participant-name {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    left: 4px;
+    bottom: 4px;
+  }
+  .approval-panel {
+    padding: 7px;
+    font-size: 0.95rem;
+  }
+  .approval-panel h3 {
+    font-size: 1.1rem;
+  }
+  .approval-request {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 8px 6px;
+  }
+  .approve-btn, .deny-btn {
+    padding: 7px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Ensure videos scale well on all devices */
+video, .main-video, .participant-video video {
+  width: 100%;
+  height: auto;
+  max-width: 100vw;
+  object-fit: cover;
+}
+
+/* Ensure buttons are easily tappable on touch devices */
+button, .control-btn, .participant-control {
+  min-width: 42px;
+  min-height: 42px;
+  touch-action: manipulation;
+}
