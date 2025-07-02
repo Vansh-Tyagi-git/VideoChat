@@ -1,5 +1,33 @@
 console.log('[host.js loaded]');
 
+// Show Room ID on the page
+const roomId = window.ROOM_ID || window.location.pathname.split('/')[1];
+const roomIdDisplay = document.getElementById('room-id-display');
+if (roomIdDisplay) {
+  roomIdDisplay.textContent = roomId;
+}
+
+// Copy link to clipboard when button clicked
+const copyBtn = document.getElementById('copy-room-btn');
+if (copyBtn) {
+  copyBtn.addEventListener('click', () => {
+    const roomLink = `${window.location.origin}/${roomId}/client`;
+    navigator.clipboard.writeText(roomLink)
+      .then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy Link';
+        }, 2000);
+      })
+      .catch(() => {
+        copyBtn.textContent = 'Failed to copy';
+      });
+  });
+}
+
+
+
+
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid');
 const approvalPanel = document.getElementById('approval-panel');
@@ -25,7 +53,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream =>
   myVideo.addEventListener('loadedmetadata', () => myVideo.play());
   videoGrid.append(myVideo);
 
-  myPeer.on('call', call => {
+  myPeer.on('call', call => {//reciving call
     call.answer(stream);
     const video = document.createElement('video');
     video.id = `video-${call.peer}`; // Unique ID for later removal
@@ -37,6 +65,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream =>
       video.srcObject = userVideoStream;
       video.addEventListener('loadedmetadata', () => video.play());
       videoGrid.append(video);
+
     });
 
     // Add call cleanup handler
@@ -45,6 +74,34 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream =>
       delete peers[call.peer]; // Cleanup peers reference
     });
   });
+  
+  const micBtn = document.getElementById('micBtn');
+  const cameraBtn = document.getElementById('cameraBtn');
+
+  // MIC TOGGLE
+  micBtn.addEventListener('click', () => {
+    const audioTrack = stream.getAudioTracks()[0];
+    if (!audioTrack) return;
+
+    const isEnabled = audioTrack.enabled;
+    audioTrack.enabled = !isEnabled;
+
+    micBtn.classList.toggle('muted', isEnabled);
+    micBtn.classList.toggle('active', !isEnabled);
+  });
+
+  // CAMERA TOGGLE
+  cameraBtn.addEventListener('click', () => {
+    const videoTrack = stream.getVideoTracks()[0];
+    if (!videoTrack) return;
+
+    const isEnabled = videoTrack.enabled;
+    videoTrack.enabled = !isEnabled;
+
+    cameraBtn.classList.toggle('off', isEnabled);
+    cameraBtn.classList.toggle('active', !isEnabled);
+  });
+
 
 });
 
@@ -76,3 +133,4 @@ socket.on('user-disconnected', userId => {
   }
   // Video removal already handled by call's 'close' event
 });
+
