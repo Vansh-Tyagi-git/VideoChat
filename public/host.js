@@ -38,7 +38,7 @@ const peers = {};
 const myPeer = new Peer(undefined, {
   host: 'peerjs-server-9g9m.onrender.com',
   port: 443,
-  path: '/',
+  path: '/peerjs',
   secure: true
 });
 
